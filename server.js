@@ -50,7 +50,7 @@ function filterByQuery(query, animalsArray) {
         const result = animalsArray.filter(animal => animal.id === id)[0];
         return result;
     }
-
+// req.query is multifaceted/multiple parameters whereas req.param is always a single parameter
 app.get('/api/animals', (req, res) => {
     let results = animals;
     if (req.query)  {
