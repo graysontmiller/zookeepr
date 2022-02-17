@@ -10,6 +10,11 @@ app.use(express.urlencoded({extended: true}));
 //parse incoming JSON data
 app.use(express.json());
 
+// middleware. We provide a filepath to a location in our application (public) and instruct the server to make these files static resources.
+// This means that all of our front-end code can now be accessed without having a specific server endpoint created for it!
+app.use(express.static('public'));
+// use this middleware for a server that serves front end as well as JSON data.
+
 // animals.json is the animalsArray
 function filterByQuery(query, animalsArray) {
   let personalityTraitsArray = [];
@@ -105,12 +110,27 @@ app.post('/api/animals', (req, res) => {
   } else {
     // add animal to json file and animalsArray in this function
     const animal = createNewAnimal(req.body, animals);
-    
+
     res.json(animal);
   }
 
 });
 
+app.get('/', (req, res) => { // the '/' route points us to the root of the server. Its whats used to make a homepage to the server. This GET route has one job, to display an HTML page in the browser.
+  res.sendFile(path.join(__dirname, './public/index.html')); //instead of responding with json, it responds by sending the file I've selected. In this case, the index.html
+});
+
+app.get('/animals', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+app.get('/zookeepers', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+app.get('*', (req, res) => {   // '*' acts as a wildcard, any route that wasn't previously defined will fall under this request and receive the homepage. This route must always come last.
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);

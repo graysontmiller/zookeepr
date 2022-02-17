@@ -108,6 +108,24 @@
         "hungry"
       ],
       "id": "10"
+    },
+    {
+      "name": "Jerry",
+      "species": "Giraffe",
+      "diet": "folivore",
+      "personalityTraits": [
+        "loving"
+      ],
+      "id": "11"
+    },
+    {
+      "name": "Goober",
+      "species": "Dog",
+      "diet": "omnivore",
+      "personalityTraits": [
+        "zany"
+      ],
+      "id": "12"
     }
   ]
 }
